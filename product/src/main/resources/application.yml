@@ -1,0 +1,35 @@
+server:
+  port: 9006
+  servlet:
+    context-path: /api
+  compression:
+    enabled: true
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  http:
+    encoding:
+      charset:utf-8
+      force:true
+      enabled:true
+#  dubbo:
+#    registry: zookeeper://localhost:2181
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    tags:
+      application: product
+
+dubbo:
+  application:
+    name: dubbo-consumer
+  protocol:
+    name: dubbo
+  registry:
+    address: zookeeper://127.0.0.1:2181
+
