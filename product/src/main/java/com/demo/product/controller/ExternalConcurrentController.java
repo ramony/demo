@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Random;
+
 @RestController
 @RequestMapping("/concurrent")
 public class ExternalConcurrentController {
@@ -14,23 +16,32 @@ public class ExternalConcurrentController {
     @Autowired
     private ExternalConcurrentService externalConcurrentService;
 
-    @GetMapping("/bulkhead")
-    @Bulkhead(name = "externalConcurrentService")
-    public String bulkhead() {
+    @GetMapping("/testServiceBulkhead")
+    public String testServiceBulkhead() {
         try {
             return externalConcurrentService.bulkhead();
         } catch (Exception e) {
-//            System.out.println(LocalTime.now() + " bulkhead error = " + Thread.currentThread().getName() + e.getMessage());
-//            return "error";
             throw new RuntimeException("haha");
         }
     }
 
-    @GetMapping("/bulkhead2")
-    @Bulkhead(name = "externalConcurrentService2")
-    public String bulkhead2() {
+    @GetMapping("/testConcurrentCalls")
+    @Bulkhead(name = "testConcurrentCalls")
+    public String testConcurrentCalls() {
         return "success";
     }
+
+    @GetMapping("/testMaxWaitDuration")
+    @Bulkhead(name = "testMaxWaitDuration")
+    public String testMaxWaitDuration() {
+        try {
+            Thread.sleep(new Random().nextInt(4000));
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return "success";
+    }
+
 
     @GetMapping("/circuit-breaker")
     public String circuitBreaker() {

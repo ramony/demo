@@ -49,10 +49,16 @@ resilience4j.bulkhead:
     default:
       maxConcurrentCalls: 5
   instances:
-    externalConcurrentService:
+    bulkhead:
       maxConcurrentCalls: 5
       maxWaitDuration: 5s
-
+    testConcurrentCalls:
+      maxConcurrentCalls: 5
+      maxWaitDuration: 5s
+    testMaxWaitDuration:
+      # 假设我们希望将并发调用的数量限制为 500，并且我们愿意等待 2 秒让线程获得许可：
+      maxConcurrentCalls: 500
+      maxWaitDuration: 2s
 
 resilience4j.thread-pool-bulkhead:
   configs:
