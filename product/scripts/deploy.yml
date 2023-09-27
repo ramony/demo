@@ -16,7 +16,7 @@ spec:
         app: product
     spec:
       containers:
-        - name: user
+        - name: product
           image: 127.0.0.1:5000/product:0.0.1-SNAPSHOT
           imagePullPolicy: IfNotPresent
           ports:
