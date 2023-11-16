@@ -1,4 +1,4 @@
 dubbo:
   registry:
-    address: zookeeper://192.168.202.154:2181
+    address: zookeeper://192.168.200.83:2181
 

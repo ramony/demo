@@ -1,0 +1,44 @@
+## 正常
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: test-api
+  name: test-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-api
+  template:
+    metadata:
+      labels:
+        app: test-api
+    spec:
+      containers:
+        - name: test-api
+          image: 127.0.0.1:5000/test-api:0.0.1-SNAPSHOT
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9009
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+---
+
+## 直接部署到集群外
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: test-api
+  name: test-api
+spec:
+  type: NodePort
+  ports:
+    - port: 9009
+      protocol: TCP
+      nodePort: 32009
+  selector:
+    app: test-api
+

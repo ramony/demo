@@ -1,0 +1,48 @@
+server:
+  port: 9009
+  servlet:
+    context-path: /api
+  compression:
+    enabled: true
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  http:
+    encoding:
+      charset:utf-8
+      force:true
+      enabled:true
+
+management:
+  web:
+    server:
+      auto-time-requests: true
+  endpoint:
+    prometheus:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    tags:
+      application: test-api
+#    distribution:
+#      percentiles-histogram:
+#        http:
+#          server:
+#            requests: true
+
+
+#management.endpoints.web.exposure.include: '*'
+#management.endpoint.health.show-details: always
+#
+#management.health.diskspace.enabled: false
+#management.health.circuitbreakers.enabled: true
+#management.health.ratelimiters.enabled: false
+#
+# management.metrics.tags.application: ${spring.application.name}
+#management.metrics.distribution.percentiles-histogram.http.server.requests: true
+#management.metrics.distribution.percentiles-histogram.resilience4j.circuitbreaker.calls: true
